@@ -5,10 +5,12 @@ import firebase from "firebase/compat/app";
 import "firebase/compat/firestore";
 import "firebase/compat/auth";
 import MyImage from "./images/headshot.jpg";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { async } from "@firebase/util";
+import ProfileId from "./components/ProfileId";
 
 firebase.initializeApp({
   apiKey: "AIzaSyBDD5-pTsPU0XOMamR48GEqDaaQ4KoVmsg",
@@ -19,8 +21,9 @@ firebase.initializeApp({
   appId: "1:102292896548:web:beb105f19eeec6423691b1",
   measurementId: "G-KB7HJ7P4D8",
 });
-const auth = firebase.auth();
+
 const firestore = firebase.firestore();
+const auth = firebase.auth();
 
 function App() {
   const [user] = useAuthState(auth);
@@ -28,7 +31,7 @@ function App() {
   return (
     <div className="App">
       <header>
-        <h1>⚛️🔥💬</h1>
+        <h1>⚛️🔥💬 SuperChat!</h1>
         <SignOut />
       </header>
 
@@ -49,7 +52,14 @@ function SignIn() {
       <button className="sign-in" onClick={signInWithGoogle}>
         Sign in with Google
       </button>
-      <p className="community">We are on a mission to stop abortion ban</p>
+      <p className="community">
+        Thank you for checking out super chat. New features will be avalaible
+        soon!{" "}
+      </p>
+      <p className="usertxt">Create User ID here</p>
+      <p className="user">
+        <ProfileId />
+      </p>
     </>
   );
 }
@@ -98,7 +108,7 @@ function ChatRoom() {
         <span ref={dummy}></span>
       </main>
 
-      <form onSubmit={sendMessage}>
+      <form className="messages" onSubmit={sendMessage}>
         <input
           value={formValue}
           onChange={(e) => setFormValue(e.target.value)}
@@ -121,6 +131,7 @@ function ChatMessage(props) {
   return (
     <>
       <div className={`message ${messageClass}`}>
+        <h1>{ProfileId.username}</h1>
         <img src={MyImage} />
         <p>{text}</p>
       </div>

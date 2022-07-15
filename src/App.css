@@ -8,12 +8,16 @@ body {
   margin: 0 auto;
 }
 
+.App header h1 {
+  text-align: center;
+}
+
 .App header {
   background-color: #181717;
   height: 10vh;
   min-height: 50px;
   color: white;
-  position: fixed;
+  position: relative;
   width: 100%;
   max-width: 728px;
   top: 0;
@@ -43,7 +47,7 @@ main {
 }
 
 main::-webkit-scrollbar {
-  width: 0.25rem;
+  width: 0.5rem;
 }
 
 main::-webkit-scrollbar-track {
@@ -55,8 +59,8 @@ main::-webkit-scrollbar-thumb {
 }
 
 form {
-  height: 10vh;
-  position: fixed;
+  height: 8vh;
+  position: absolute;
   bottom: 0;
   background-color: rgb(24, 23, 23);
   width: 100%;
@@ -157,4 +161,15 @@ img {
   height: 40px;
   border-radius: 50%;
   margin: 2px 5px;
+}
+
+p .user {
+  text-align: center;
+  top: 3em;
+  left: 4em;
+}
+
+.usertxt {
+  text-align: center;
+  left: 5.4em;
 }
