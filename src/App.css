@@ -10,6 +10,8 @@ body {
 
 .App header h1 {
   text-align: center;
+  position: relative;
+  left: 6.5em;
 }
 
 .App header {

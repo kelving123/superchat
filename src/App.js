@@ -32,6 +32,7 @@ function App() {
     <div className="App">
       <header>
         <h1>⚛️🔥💬 SuperChat!</h1>
+
         <SignOut />
       </header>
 
