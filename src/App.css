@@ -1,5 +1,7 @@
 body {
-  background-color: aqua;
+  background-image: url("./components/images/Flowerbackground.jpeg");
+  background-size: cover;
+  background-position: center;
 }
 
 .App {
@@ -41,7 +43,7 @@ body {
 
 main {
   padding: 10px;
-  height: 80vh;
+  height: 100vh;
   margin: 10vh 0 10vh;
   overflow-y: scroll;
   display: flex;
@@ -174,4 +176,46 @@ p .user {
 .usertxt {
   text-align: center;
   left: 5.4em;
+}
+
+.userPassword {
+  text-align: center;
+  top: 6em;
+  left: 4em;
+}
+.message {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.sent {
+  flex-direction: row-reverse;
+}
+
+.sent p {
+  background: #0b93f6;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.received p {
+  background: #e5e5ea;
+  color: black;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.message h1 {
+  margin-right: 10px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.message img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
 }

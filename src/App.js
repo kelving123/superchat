@@ -6,7 +6,7 @@ import "firebase/compat/firestore";
 import "firebase/compat/auth";
 import MyImage from "./images/headshot.jpg";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
-
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 import { async } from "@firebase/util";
@@ -36,7 +36,7 @@ function App() {
         <SignOut />
       </header>
 
-      <section>{user ? <ChatRoom /> : <SignIn />}</section>
+      <section>{user ? <ChatRoom user={user} /> : <SignIn />}</section>
     </div>
   );
 }
@@ -54,13 +54,10 @@ function SignIn() {
         Sign in with Google
       </button>
       <p className="community">
-        Thank you for checking out super chat. New features will be avalaible
-        soon!{" "}
+        Thank you for checking out super chat. New features will be available
+        soon!
       </p>
-      <p className="usertxt">Create User ID here</p>
-      <p className="user">
-        <ProfileId />
-      </p>
+      <ProfileId />
     </>
   );
 }
@@ -75,10 +72,10 @@ function SignOut() {
   );
 }
 
-function ChatRoom() {
+function ChatRoom({ user }) {
   const dummy = useRef();
   const messagesRef = firestore.collection("messages");
-  const query = messagesRef.orderBy("createdAt").limit(25);
+  const query = messagesRef.orderBy("createdAt").limit(400);
 
   const [messages] = useCollectionData(query, { idField: "id" });
 
@@ -87,13 +84,14 @@ function ChatRoom() {
   const sendMessage = async (e) => {
     e.preventDefault();
 
-    const { uid, photoURL } = auth.currentUser;
+    const { uid, photoURL } = user;
 
     await messagesRef.add({
       text: formValue,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       uid,
       photoURL,
+      email: user.email,
     });
 
     setFormValue("");
@@ -104,7 +102,9 @@ function ChatRoom() {
     <>
       <main>
         {messages &&
-          messages.map((msg) => <ChatMessage key={msg.id} message={msg} />)}
+          messages.map((msg) => (
+            <ChatMessage key={msg.id} message={msg} email={user.email} />
+          ))}
 
         <span ref={dummy}></span>
       </main>
@@ -124,19 +124,17 @@ function ChatRoom() {
   );
 }
 
-function ChatMessage(props) {
-  const { text, uid } = props.message;
+function ChatMessage({ message, email }) {
+  const { text, uid, photoURL } = message;
 
   const messageClass = uid === auth.currentUser.uid ? "sent" : "received";
 
   return (
-    <>
-      <div className={`message ${messageClass}`}>
-        <h1>{ProfileId.username}</h1>
-        <img src={MyImage} />
-        <p>{text}</p>
-      </div>
-    </>
+    <div className={`message ${messageClass}`}>
+      <h1>{email}</h1>
+      <img src={photoURL || MyImage} alt="Profile" />
+      <p>{text}</p>
+    </div>
   );
 }
 
