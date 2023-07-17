@@ -37,14 +37,14 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 100vh;
+  min-height: 80vh;
   background-color: darkcyan;
 }
 
 main {
   padding: 10px;
-  height: 100vh;
-  margin: 10vh 0 10vh;
+  height: 60vh;
+  margin: 5vh 0 5vh;
   overflow-y: scroll;
   display: flex;
   flex-direction: column;
@@ -64,7 +64,8 @@ main::-webkit-scrollbar-thumb {
 
 form {
   height: 8vh;
-  position: absolute;
+  position: relative;
+  top: 4em;
   bottom: 0;
   background-color: rgb(24, 23, 23);
   width: 100%;
